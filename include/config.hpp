@@ -25,6 +25,7 @@
 #endif
 
 using BYTE = byte;
+using STRING = String;
 using Effect = void(*)(void);
 
 
@@ -39,6 +40,8 @@ using Effect = void(*)(void);
 #define RTC_SCLK_PIN    6
 #define RTC_DAT_PIN     7
 #define RTC_RST_PIN     8 
+
+#define TIME_UPDATE_DELAY 1000
 
 void draw(char, int, CRGB);
 void drawZero(int, CRGB);

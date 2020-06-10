@@ -9,6 +9,7 @@ RTC rtc
   RTC_SCLK_PIN,
   RTC_DAT_PIN
 );
+STRING Time = "0000";
 
 void setup() 
 {
@@ -21,21 +22,21 @@ void setup()
   rtc.begin();
 }
 
-int i;
-String time;
+int prev_tick = 0;
 void loop() 
 {
-  time = rtc.gettime("s");
-  
-  int pos = 0;
-  for(int i = DIGITS_COUNT - 1; i >= 0; i--)
+  if ((millis() - prev_tick) > TIME_UPDATE_DELAY)
   {
-    draw(time[i], pos++, CRGB::Purple);
+    prev_tick = millis();
+    Time = rtc.gettime("Hm");
+  
+    for(int i = DIGITS_COUNT - 1, pos = 0; i >= 0; i--)
+    {
+      draw(Time[i], pos++, CRGB::Purple);
+    }
+
+    FastLED.show();
   }
-
-  FastLED.show();
-
-  delay(1000);
 }
 
 inline void fill(CRGB color, int start, int end) {
