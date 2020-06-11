@@ -23,5 +23,5 @@ void loop()
 {
   Time = rtc.gettime("i:s");
   DigitLED.drawString(Time, CRGB::Purple);
-  delay(1000);
+  delay(100);
 }
