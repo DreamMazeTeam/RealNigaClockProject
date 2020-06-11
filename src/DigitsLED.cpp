@@ -1,0 +1,185 @@
+#include <DigitsLED.hpp>
+
+void CDigitLED::begin()
+{
+    this->num_leds = NUM_LEDS;
+    this->line_length = LEDS_AT_LINE;
+
+    FastLED.addLeds<WS2812B, LED_DATA_PIN, GRB>(this->leds, this->num_leds);
+    FastLED.setCorrection(TypicalLEDStrip);
+    FastLED.setBrightness(50);
+
+    this->begined = true;
+}
+
+void CDigitLED::drawString(String str, CRGB color)
+{
+    this->led_pointer = 0;
+    
+    for(int i = str.length() - 1; i >= 0; i--){
+        draw(str[i], CRGB::Purple);
+    }
+
+    FastLED.show();
+}
+
+void CDigitLED::draw(char c, CRGB color)
+{
+  switch (c)
+  {
+  case '0':
+    drawZero(color);
+    break;
+  case '1':
+    drawOne(color);
+    break;
+  case '2':
+    drawTwo(color);
+    break;
+  case '3':
+    drawThree(color);
+    break;
+  case '4':
+    drawFour(color);
+    break;
+  case '5':
+    drawFive(color);
+    break;
+  case '6':
+    drawSix(color);
+    break;
+  case '7':
+    drawSeven(color);
+    break;
+  case '8':
+    drawEight(color);
+    break;
+  case '9':
+    drawNine(color);
+    break;
+  case ':':
+    drawDb(color);
+    break;
+  }
+}
+
+void CDigitLED::drawZero(CRGB color)
+{
+    fill(color, this->led_pointer, this->led_pointer + this->line_length * 3);
+    this->led_pointer += this->line_length * 3;
+    fill(CRGB(0, 0, 0), this->led_pointer, this->led_pointer + this->line_length);
+    this->led_pointer += this->line_length;
+    fill(color, this->led_pointer, this->led_pointer + this->line_length * 3);
+    this->led_pointer += this->line_length * 3;
+}
+void CDigitLED::drawOne(CRGB color)
+{
+    fill(color, this->led_pointer, this->led_pointer + this->line_length);
+    this->led_pointer += this->line_length;
+    fill(CRGB(0, 0, 0), this->led_pointer, this->led_pointer + this->line_length * 3);
+    this->led_pointer += this->line_length * 3;
+    fill(color, this->led_pointer, this->led_pointer + this->line_length);
+    this->led_pointer += this->line_length;
+    fill(CRGB(0, 0, 0), this->led_pointer, this->led_pointer + this->line_length * 2);
+    this->led_pointer += this->line_length * 2;
+}
+
+void CDigitLED::drawTwo(CRGB color)
+{
+    fill(CRGB(0, 0, 0), this->led_pointer, this->led_pointer + this->line_length);
+    this->led_pointer += this->line_length;
+    fill(color, this->led_pointer, this->led_pointer + this->line_length * 5);
+    this->led_pointer += this->line_length * 5;
+    fill(CRGB(0, 0, 0), this->led_pointer, this->led_pointer + this->line_length);
+    this->led_pointer += this->line_length;
+}
+
+void CDigitLED::drawThree(CRGB color)
+{
+    fill(color, this->led_pointer, this->led_pointer + this->line_length * 2);
+    this->led_pointer += this->line_length * 2;
+    fill(CRGB(0, 0, 0), this->led_pointer, this->led_pointer + this->line_length);
+    this->led_pointer += this->line_length;
+    fill(color, this->led_pointer, this->led_pointer + this->line_length * 3);
+    this->led_pointer += this->line_length * 3;
+    fill(CRGB(0, 0, 0), this->led_pointer, this->led_pointer + this->line_length);
+    this->led_pointer += this->line_length;
+}
+
+void CDigitLED::drawFour(CRGB color)
+{
+    fill(color, this->led_pointer, this->led_pointer + this->line_length);
+    this->led_pointer += this->line_length;
+    fill(CRGB(0, 0, 0), this->led_pointer, this->led_pointer + this->line_length *2);
+    this->led_pointer += this->line_length * 2;
+    fill(color, this->led_pointer, this->led_pointer + this->line_length * 2);
+    this->led_pointer += this->line_length * 2;
+    fill(CRGB(0, 0, 0), this->led_pointer, this->led_pointer + this->line_length);
+    this->led_pointer += this->line_length;
+    fill(color, this->led_pointer, this->led_pointer + this->line_length);
+    this->led_pointer += this->line_length;
+}
+
+void CDigitLED::drawFive(CRGB color)
+{
+    fill(color, this->led_pointer, this->led_pointer + this->line_length * 2);
+    this->led_pointer += this->line_length * 2;
+    fill(CRGB(0, 0, 0), this->led_pointer, this->led_pointer + this->line_length );
+    this->led_pointer += this->line_length;
+    fill(color, this->led_pointer, this->led_pointer + this->line_length);
+    this->led_pointer += this->line_length;
+    fill(CRGB(0, 0, 0), this->led_pointer, this->led_pointer + this->line_length);
+    this->led_pointer += this->line_length;
+    fill(color, this->led_pointer, this->led_pointer + this->line_length * 2);
+    this->led_pointer += this->line_length * 2;
+}
+
+void CDigitLED::drawSix(CRGB color)
+{
+    fill(color, this->led_pointer, this->led_pointer + this->line_length * 4);
+    this->led_pointer += this->line_length * 4;
+    fill(CRGB(0, 0, 0), this->led_pointer, this->led_pointer + this->line_length);
+    this->led_pointer += this->line_length;
+    fill(color, this->led_pointer, this->led_pointer + this->line_length * 2);
+    this->led_pointer += this->line_length * 2;
+}
+
+void CDigitLED::drawSeven(CRGB color)
+{
+    fill(color, this->led_pointer, this->led_pointer + this->line_length);
+    this->led_pointer += this->line_length;
+    fill(CRGB(0, 0, 0), this->led_pointer, this->led_pointer + this->line_length * 3);
+    this->led_pointer += this->line_length * 3;
+    fill(color, this->led_pointer, this->led_pointer + this->line_length * 2);
+    this->led_pointer += this->line_length * 2;
+    fill(CRGB(0, 0, 0), this->led_pointer, this->led_pointer + this->line_length);
+    this->led_pointer += this->line_length;
+}
+
+void CDigitLED::drawEight(CRGB color)
+{
+    fill(color, this->led_pointer, this->led_pointer + this->line_length * 7);
+    this->led_pointer += this->line_length * 7;
+}
+
+void CDigitLED::drawNine(CRGB color)
+{
+    fill(color, this->led_pointer, this->led_pointer + this->line_length * 2);
+    this->led_pointer += this->line_length * 2;
+    fill(CRGB(0, 0, 0), this->led_pointer, this->led_pointer + this->line_length);
+    this->led_pointer += this->line_length;
+    fill(color, this->led_pointer, this->led_pointer + this->line_length * 4);
+    this->led_pointer += this->line_length * 4;
+}
+
+void CDigitLED::drawDb(CRGB color)
+{
+    fill(color, this->led_pointer, this->led_pointer + 4);
+    this->led_pointer += 4;
+}
+
+void CDigitLED::fill(CRGB color, uint start, uint end) {
+    for(int i = start; i < end; this->leds[i++] = color);
+}
+
+CDigitLED DigitLED;
