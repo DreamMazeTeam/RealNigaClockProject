@@ -15,11 +15,12 @@
 using uint = int;
 using UINT = unsigned int;
 using BOOL = bool;
+using Effect = void(*)(CRGB*, uint, uint);
 
 #define DEBUG 1
 #define RELEASE 0
 
-#define BUILD RELEASE
+#define BUILD 0
 
 #if BUILD == DEBUG
 
@@ -37,6 +38,7 @@ using BOOL = bool;
 
 class CDigitLED
 {
+public:
     CRGB leds[NUM_LEDS];
     UINT num_leds;
     UINT led_pointer;
@@ -46,6 +48,10 @@ class CDigitLED
 public:
     void draw(char, CRGB);
     void drawString(String, CRGB);
+
+    void draw(char, Effect);
+    void drawString(String, Effect);
+
     void begin();
 
 private:
@@ -60,7 +66,20 @@ private:
     void drawEight(CRGB);  
     void drawNine(CRGB);
     void drawDb(CRGB);
-    void fill(CRGB, uint start, uint end);
+    void fill(CRGB, uint, uint);
+
+    void drawZero(Effect);
+    void drawOne(Effect);
+    void drawTwo(Effect);
+    void drawThree(Effect);
+    void drawFour(Effect);
+    void drawFive(Effect);
+    void drawSix(Effect);
+    void drawSeven(Effect);
+    void drawEight(Effect);  
+    void drawNine(Effect);
+    void drawDb(Effect);
+    void fill(Effect, uint, uint);
 };
 
 extern CDigitLED DigitLED;
