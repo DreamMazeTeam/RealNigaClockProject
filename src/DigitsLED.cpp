@@ -60,6 +60,8 @@ void CDigitLED::draw(char c, CRGB color)
   case ':':
     drawDb(color);
     break;
+  case '-':
+    drawBlind();
   }
 }
 
@@ -178,10 +180,15 @@ void CDigitLED::drawDb(CRGB color)
     this->led_pointer += 4;
 }
 
+void CDigitLED::drawBlind(void)
+{
+  fill(CRGB(0, 0, 0), this->led_pointer, this->led_pointer + this->line_length * 7);
+  this->led_pointer += this->line_length * 7;
+}
+
 void CDigitLED::fill(CRGB color, uint start, uint end) {
     for(int i = start; i < end; this->leds[i++] = color);
 }
-
 
 
 void CDigitLED::drawString(String str, Effect color)
@@ -354,5 +361,50 @@ void CDigitLED::drawDb(Effect color)
 void CDigitLED::fill(Effect color, uint start, uint end) {
     color(this->leds, start, end);
 }
+
+CButton::CButton(int pin): pin(pin)
+{
+  if (CButton::first == nullptr)
+    CButton::first = this;
+  else
+    CButton::last->next = this;
+
+  CButton::last = this;
+}
+
+bool CButton::isPressed()
+{
+  return false;
+}
+
+bool CButton::isReleased()
+{
+  return false;
+}
+
+void CButton::update()
+{
+  Serial.println("Updates button");
+}
+
+void CButton::Tick()
+{
+  if (CButton::first != nullptr)
+  {
+    CButton::button = CButton::first;
+    CButton::button->update();
+
+    do
+    {
+      CButton::button = CButton::button->next;
+      CButton::button->update();
+
+    } while ((button->next != nullptr));
+  }
+}
+
+CButton* CButton::last = nullptr;
+CButton* CButton::first = nullptr;
+CButton* CButton::button = nullptr;
 
 CDigitLED DigitLED;

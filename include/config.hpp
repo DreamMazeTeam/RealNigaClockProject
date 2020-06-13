@@ -12,6 +12,9 @@ using STRING = String;
 #define RTC_SCLK_PIN    6
 #define RTC_DAT_PIN     7
 #define RTC_RST_PIN     8 
+#define BUTTON1_PIN     2
+#define BUTTON2_PIN     3
+#define BUTTON3_PIN     5
 
 #define TIME_UPDATE_DELAY 1000
 

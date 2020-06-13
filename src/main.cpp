@@ -7,7 +7,10 @@ RTC rtc
   RTC_SCLK_PIN,
   RTC_DAT_PIN
 );
-STRING Time = "12:10";
+
+CButton btn_mode(BUTTON1_PIN);
+CButton btn_up(BUTTON2_PIN);
+CButton btn_down(BUTTON3_PIN);
 
 void setup() 
 {
@@ -16,29 +19,30 @@ void setup()
   rtc.begin();
 }
 
-bool inverse = 0;
-byte counter = 0;
-void TimeScaler(CRGB* leds, uint start, uint end)
+String getOutput(void)
 {
-  for(int i = start; i < end; i++){
-    leds[i] = CRGB(192, 0, 248);
-  }
+  return String(rtc.gettime("H:i"));
 }
 
+byte counter = 0;
 CRGB color;
+
 void loop() 
 {
+  CButton::Tick();
+  delay(1000);
+
   for (int i = 0 ; i < NUM_LEDS; i++)
   {
     color = CHSV(counter + i * 2, 255, 255);
-    DigitLED.drawString(rtc.gettime("H:s"), color);
+    DigitLED.drawString(getOutput(), color);
     delay(i);
   }
   counter++;
   for (int i = NUM_LEDS-1 ; i >= 0; i--)
   {
     color = CHSV(counter + i * 2, 255, 255);
-    DigitLED.drawString(rtc.gettime("H:s"), color);
+    DigitLED.drawString(getOutput(), color);
     delay(i);
   }
   counter++;
