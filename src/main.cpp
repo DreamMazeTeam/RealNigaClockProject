@@ -31,14 +31,14 @@ void loop()
   for (int i = 0 ; i < NUM_LEDS; i++)
   {
     color = CHSV(counter + i * 2, 255, 255);
-    DigitLED.drawString(rtc.gettime("H:i"), color);
+    DigitLED.drawString(rtc.gettime("H:s"), color);
     delay(i);
   }
   counter++;
   for (int i = NUM_LEDS-1 ; i >= 0; i--)
   {
     color = CHSV(counter + i * 2, 255, 255);
-    DigitLED.drawString(rtc.gettime("H:i"), color);
+    DigitLED.drawString(rtc.gettime("H:s"), color);
     delay(i);
   }
   counter++;
