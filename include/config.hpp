@@ -4,6 +4,7 @@
 #include <Arduino.h>
 #include <RTC.h>
 #include <DigitsLED.hpp>
+#include <Button.h>
 
 using BYTE = byte;
 using STRING = String;

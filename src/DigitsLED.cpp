@@ -362,49 +362,4 @@ void CDigitLED::fill(Effect color, uint start, uint end) {
     color(this->leds, start, end);
 }
 
-CButton::CButton(int pin): pin(pin)
-{
-  if (CButton::first == nullptr)
-    CButton::first = this;
-  else
-    CButton::last->next = this;
-
-  CButton::last = this;
-}
-
-bool CButton::isPressed()
-{
-  return false;
-}
-
-bool CButton::isReleased()
-{
-  return false;
-}
-
-void CButton::update()
-{
-  Serial.println("Updates button");
-}
-
-void CButton::Tick()
-{
-  if (CButton::first != nullptr)
-  {
-    CButton::button = CButton::first;
-    CButton::button->update();
-
-    do
-    {
-      CButton::button = CButton::button->next;
-      CButton::button->update();
-
-    } while ((button->next != nullptr));
-  }
-}
-
-CButton* CButton::last = nullptr;
-CButton* CButton::first = nullptr;
-CButton* CButton::button = nullptr;
-
 CDigitLED DigitLED;

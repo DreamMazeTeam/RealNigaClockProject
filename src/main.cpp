@@ -8,10 +8,6 @@ RTC rtc
   RTC_DAT_PIN
 );
 
-CButton btn_mode(BUTTON1_PIN);
-CButton btn_up(BUTTON2_PIN);
-CButton btn_down(BUTTON3_PIN);
-
 void setup() 
 {
   Serial.begin(9600);
@@ -27,10 +23,15 @@ String getOutput(void)
 byte counter = 0;
 CRGB color;
 
+CButton btn_mode(BUTTON1_PIN);
+CButton btn_up(BUTTON2_PIN);
+CButton btn_down(BUTTON3_PIN);
+
 void loop() 
 {
   CButton::Tick();
-  delay(1000);
+
+  if (btn_mode.hasClicks()) Serial.println(btn_mode.getClicks());
 
   for (int i = 0 ; i < NUM_LEDS; i++)
   {

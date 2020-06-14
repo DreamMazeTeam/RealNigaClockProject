@@ -83,28 +83,6 @@ private:
     void fill(Effect, uint, uint);
 };
 
-class CButton
-{   
-private:
-    static CButton* last;
-    static CButton* first;
-    static CButton* button;
-
-    int prev_state = 0;
-    int state = 0;
-    int pin = -1;
-    CButton* next = nullptr;
-
-public:
-    static void Tick();
-
-    CButton(int);
-
-    bool isPressed(void);
-    bool isReleased(void);
-    void update(void);
-};
-
 extern CDigitLED DigitLED;
 
 #endif
